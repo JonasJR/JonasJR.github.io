@@ -51,14 +51,16 @@ function init() {
     ctx.fillText("Press return to start the game!", 400, 400, 500);
     ctx.fillStyle = "#ffffff";
 
-
+    if(!JSON.parse(localStorage.getItem('highScoreCircleMatch'))){
+      highScore = "No highscore"
+    } else {
+      highScore = JSON.parse(localStorage.getItem('highScoreCircleMatch'));
+    }
 
     ctxHigh.font = "18px Verdana";
     ctxHigh.fillStyle = "#ffffff";
     ctxHigh.textAlign = "center";
-    ctxHigh.fillText("Highscore", 100,200, 500);
-    ctxHigh.fillText("comming", 100,300, 500);
-    ctxHigh.fillText("soon!", 100,400, 500);
+    ctxHigh.fillText(JSON.stringyfy(highScore), 100,300, 500);
 }
 
 generateNewCircles(level);
@@ -212,11 +214,16 @@ function youLoose() {
   ctx.fillText("You loose!", 400, 300, 500);
   ctx.font = "30px Verdana";
   ctx.fillText("Press return to restart the game!", 400, 350, 500);
-
   checkHighscore(points);
 }
 
-function checkHighscore(score) {
-  var reader = new FileReader();
-  var filePath = "highscore.txt";
+function checkHighscore(points) {
+  if(!JSON.parse(localStorage.getItem('highScoreCircleMatch'))){
+    localStorage.setItem('highScoreCircleMatch', JSON.stringify(points));
+  } else {
+    highScore = JSON.parse(localStorage.getItem('highScoreCircleMatch'));
+    if(highScore <= points){
+      localStorage.setItem('highScoreCircleMatch', JSON.stringify(points));
+    }
+  }
 }
