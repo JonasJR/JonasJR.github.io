@@ -157,35 +157,35 @@ function generateNewCircles(level) {
   }
   if(level == 2){
     circle = new Circle(400, 300, randRadius(10, 100), 50, 1.5, c.width, c.height);
-    playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), 10, 1.5, c.width, c.height);
+    playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), 5, 1.5, c.width, c.height);
   }
   if(level == 3){
     circle = new Circle(400, 300, randRadius(10, 100), randLineWidth(50,5), 1.5, c.width, c.height);
-    playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.5, c.width, c.height);
+    playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), 5, 1.5, c.width, c.height);
   }
   if(level == 4){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 1.5, c.width, c.height);
-    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.5, c.width, c.height);
+    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), 5, 1.5, c.width, c.height);
   }
   if(level == 5){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 1.75, c.width, c.height);
-    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.75, c.width, c.height);
+    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), 5, 1.75, c.width, c.height);
   }
   if(level == 6){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 2, c.width, c.height);
-    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 2, c.width, c.height);
+    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), 5, 2, c.width, c.height);
   }
   if(level == "ELITE!"){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 2.5, c.width, c.height);
-    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 2.5, c.width, c.height);
+    playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), 5, 2.5, c.width, c.height);
   }
 }
 
