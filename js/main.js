@@ -30,6 +30,7 @@ var lost = true;
 var circle;
 var playerCircle;
 var user;
+var highScore;
 
 init();
 
@@ -60,7 +61,8 @@ function init() {
     ctxHigh.font = "18px Verdana";
     ctxHigh.fillStyle = "#ffffff";
     ctxHigh.textAlign = "center";
-    ctxHigh.fillText(JSON.stringyfy(highScore), 100,300, 500);
+    ctxHigh.fillText("Highscore:", 100,250, 500);
+    ctxHigh.fillText(user + " - " + highScore, 100,300, 500);
 }
 
 generateNewCircles(level);
@@ -217,6 +219,7 @@ function youLoose() {
   checkHighscore(points);
 }
 
+//check the highscore
 function checkHighscore(points) {
   if(!JSON.parse(localStorage.getItem('highScoreCircleMatch'))){
     localStorage.setItem('highScoreCircleMatch', JSON.stringify(points));
@@ -226,4 +229,11 @@ function checkHighscore(points) {
       localStorage.setItem('highScoreCircleMatch', JSON.stringify(points));
     }
   }
+
+  ctxHigh.clearRect(0, 0, cHigh.width, cHigh.height);
+  ctxHigh.font = "18px Verdana";
+  ctxHigh.fillStyle = "#ffffff";
+  ctxHigh.textAlign = "center";
+  ctxHigh.fillText("Highscore:", 100,250, 500);
+  ctxHigh.fillText(JSON.parse(localStorage.getItem('userNameCircleMatch')) + " - " + JSON.parse(localStorage.getItem('highScoreCircleMatch')), 100,300, 500);
 }
