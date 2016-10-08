@@ -1,0 +1,12 @@
+body {
+  text-algin: center;
+  overflow: hidden;
+  margin: 10px auto;
+  width: 800px;
+  background-color: #324353;
+}
+#game-board {
+  background-color: #415667;
+  margin: 0 auto;
+  overflow: hidden;
+}
