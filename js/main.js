@@ -95,11 +95,11 @@ function check_collision() {
 
 //generate new circles
 function generateNewCircles() {
-  if(points < 5){
+  if(points < 3){
     circle = new Circle(400, 300, 70, 50, 1, c.width, c.height);
     playerCircle = new Circle(400, 300, 140, 10, 1, c.width, c.height);
   }
-  if(points >= 5){
+  if(points >= 3){
     circle = new Circle(400, 300, randRadius(10, 100), 50, 1.5, c.width, c.height);
     playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), 10, 1.5, c.width, c.height);
     level = 2;
