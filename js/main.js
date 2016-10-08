@@ -1,8 +1,27 @@
 var c = document.getElementById("game-board");
+var cHigh = document.getElementById("highscore-board");
 var ctx = c.getContext("2d");
+var ctxHigh = cHigh.getContext("2d");
+
+var levelSound = new Audio("audio/level.wav");
+var scoreSound = new Audio("audio/score.wav");
+var gameOverSound = new Audio("audio/gameover.wav");
+var song = new Audio("audio/music.mp3");
+song.addEventListener('ended', function() {
+  this.currentTime = 0;
+  this.play();
+}, false);
+song.play();
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+var uName1 = "";
+var uName2 = "";
+var uName3 = "";
+var hScore1 = "";
+var hScore2 = "";
+var hScore3 = "";
 
 var keyPressed = false;
 var points = 0;
@@ -10,10 +29,17 @@ var level = 1;
 var lost = true;
 var circle;
 var playerCircle;
+var user;
 
 init();
 
 function init() {
+    if(!JSON.parse(localStorage.getItem('userNameCircleMatch'))) {
+      user = prompt("Choose a username: ");
+      localStorage.setItem('userNameCircleMatch', JSON.stringify(user));
+    } else {
+      user = JSON.parse(localStorage.getItem('userNameCircleMatch'));
+    }
     ctx.font = "50px Verdana";
     ctx.fillStyle = "#985A41";
     ctx.textAlign = "center";
@@ -23,10 +49,19 @@ function init() {
     ctx.fillText("Use spacebar to match the circles!", 400, 350, 700);
     ctx.font = "20px Verdana";
     ctx.fillText("Press return to start the game!", 400, 400, 500);
-    ctx.fillStyle = "#ffffff"
+    ctx.fillStyle = "#ffffff";
+
+
+
+    ctxHigh.font = "18px Verdana";
+    ctxHigh.fillStyle = "#ffffff";
+    ctxHigh.textAlign = "center";
+    ctxHigh.fillText("Highscore", 100,200, 500);
+    ctxHigh.fillText("comming", 100,300, 500);
+    ctxHigh.fillText("soon!", 100,400, 500);
 }
 
-generateNewCircles();
+generateNewCircles(level);
 
 //gameLoop
 function gameLoop() {
@@ -65,9 +100,9 @@ function keyDownHandler(e) {
   }
   else if (e.keyCode == 13 && lost) {
     points = 0;
-    level = 0;
+    level = 1;
     lost = false;
-    generateNewCircles();
+    generateNewCircles(level);
     game_interval = setInterval(gameLoop, 16);
   }
 }
@@ -86,56 +121,71 @@ function keyUpHandler(e) {
 function check_collision() {
   if((circle.getRadius()+(circle.getLineWidth()/2)) > (playerCircle.getRadius()) && (circle.getRadius()-(circle.getLineWidth()/2)) < (playerCircle.getRadius())) {
     points++;
-    generateNewCircles();
+    if(points >= 3 && level == 1) {
+      level = 2;
+      levelSound.play();
+    }if(points >= 10 && level == 2) {
+      level = 3;
+      levelSound.play();
+    }if(points >= 15 && level == 3) {
+      level = 4;
+      levelSound.play();
+    }if(points >= 20 && level == 4) {
+      level = 5;
+      levelSound.play();
+    }if(points >= 25 && level == 5) {
+      level = 6;
+      levelSound.play();
+    }if(points >= 30 && level == 6) {
+      level = "ELITE!";
+      levelSound.play();
+    }
+    generateNewCircles(level);
+    scoreSound.play();
   }
    else {
      youLoose();
+     gameOverSound.play();
    }
 }
 
 //generate new circles
-function generateNewCircles() {
-  if(points < 3){
+function generateNewCircles(level) {
+  if(level == 1){
     circle = new Circle(400, 300, 70, 50, 1, c.width, c.height);
     playerCircle = new Circle(400, 300, 140, 10, 1, c.width, c.height);
   }
-  if(points >= 3){
+  if(level == 2){
     circle = new Circle(400, 300, randRadius(10, 100), 50, 1.5, c.width, c.height);
     playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), 10, 1.5, c.width, c.height);
-    level = 2;
   }
-  if(points >= 15){
+  if(level == 3){
     circle = new Circle(400, 300, randRadius(10, 100), randLineWidth(50,5), 1.5, c.width, c.height);
     playerCircle = new Circle(400, 300, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.5, c.width, c.height);
-    level = 3;
   }
-  if(points >= 25){
+  if(level == 4){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 1.5, c.width, c.height);
     playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.5, c.width, c.height);
-    level = 4;
   }
-  if(points >= 35){
+  if(level == 5){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 1.75, c.width, c.height);
     playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 1.75, c.width, c.height);
-    level = 5;
   }
-  if(points >= 45){
+  if(level == 6){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 2, c.width, c.height);
     playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 2, c.width, c.height);
-    level = 6;
   }
-  if(points >= 60){
+  if(level == "ELITE!"){
     randPosX = randPos();
     randPosY = randPos();
     circle = new Circle(randPosX, randPosY, randRadius(10, 100), randLineWidth(50,5), 2.5, c.width, c.height);
     playerCircle = new Circle(randPosX, randPosY, randRadius((circle.getRadius()+50),150), randLineWidth(circle.getLineWidth(),2), 2.5, c.width, c.height);
-    level = "ELITE!";
   }
 }
 
@@ -162,4 +212,11 @@ function youLoose() {
   ctx.fillText("You loose!", 400, 300, 500);
   ctx.font = "30px Verdana";
   ctx.fillText("Press return to restart the game!", 400, 350, 500);
+
+  checkHighscore(points);
+}
+
+function checkHighscore(score) {
+  var reader = new FileReader();
+  var filePath = "highscore.txt";
 }
