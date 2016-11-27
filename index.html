@@ -1,31 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Calc</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="js.js"></script>
-</head>
-<body>
-  <h1>Proof of concept</h1>
-  <p>
-    Det här adderar bara värdena som finns i varje textruta, men precis som i excel så kan man länka dem på andra sätt.
-  </p>
-<form id="calc" name="calc">
-  	<p>
-      <input id="arsvolym" name="arsvolym" type="text" onchange="calculateTotal()">
-      <label for="arsvolym">Värde 1</label>
-    </p>
-    <p>
-      <input id="antalavrop" name="antalavrop" type="text" onchange="calculateTotal()">
-      <label for="antalavrop">Värde 2</label>
-    </p>
-    <p>
-      <input id="nettovikt" name="nettovikt" type="text" onchange="calculateTotal()">
-      <label for="nettovikt">Värde 3</label>
-    </p>
-    <div id="result"><strong>Total:</strong> <span id="total"></span></div>
-  </div>
-</form>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Circle Match</title>
+
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <canvas id="highscore-board" width="200" height="600"></canvas>
+    <canvas id="game-board" width="800" height="600"></canvas>
+    <script src="js/Circle.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
